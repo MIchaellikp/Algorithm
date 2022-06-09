@@ -1,18 +1,16 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        d = {}
+        hashtable = [0] * 26
         
         for i in s:
-            d[i] = d.get(i,0) + 1
+            hashtable[ord(i) - ord('a')] += 1
             
-        for j in t:
-            if j not in d:
+        for i in t:
+            hashtable[ord(i) - ord('a')] -= 1
+            
+        for j in hashtable:
+            if j != 0:
                 return False
-            else:
-                d[j] -= 1
-                if d[j] < 0:
-                    return False
-        if sum(d.values()) > 0:
-            return False
-        else:    
-            return True
+                break
+        return True
+        
