@@ -1,4 +1,4 @@
-class Solution:
+"""class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
         a = len(s)
         next = ['' for i in range(a)]
@@ -16,4 +16,15 @@ class Solution:
         if next[-1] != -1 and a%(a-next[-1] -1) == 0:
             return True
         else:
+            return False"""
+import collections
+
+class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:
+        
+        if not s:
             return False
+            
+        ss = (s + s)[1:-1]
+        print(ss)
+        return ss.find(s) != -1
