@@ -3,11 +3,11 @@ class Solution:
         slow = fast = 0
         
         for i in range(len(nums)):
-            if nums[i] == val:
+            if nums[fast] == val:
                 fast += 1
             else:
                 nums[slow] = nums[fast]
-                slow += 1
                 fast += 1
+                slow += 1
                 
         return slow
