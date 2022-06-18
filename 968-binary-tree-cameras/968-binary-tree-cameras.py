@@ -24,5 +24,5 @@ class Solution:
             if l == 'coverning' or r == 'coverning':
                 return 'covered'
             
-            
+        
         return (dfs(root) == 'to_be_covered') + self.count
