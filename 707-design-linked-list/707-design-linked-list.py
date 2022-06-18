@@ -1,107 +1,87 @@
-class Node(object):
-
+class Node:
+    
     def __init__(self, val):
         self.val = val
+        self.prev = None
         self.next = None
 
 
-class MyLinkedList(object):
+class MyLinkedList:
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.head = None
-        self.size = 0
+        self._head, self._tail = Node(0), Node(0)  # 虚拟节点
+        self._head.next, self._tail.prev = self._tail, self._head
+        self._count = 0  # 添加的节点数
 
-    def get(self, index):
+    def _get_node(self, index: int) -> Node:
+        # 当index小于_count//2时, 使用_head查找更快, 反之_tail更快
+        if index >= self._count // 2:
+            # 使用prev往前找
+            node = self._tail
+            for _ in range(self._count - index):
+                node = node.prev
+        else:
+            # 使用next往后找
+            node = self._head   
+            for _ in range(index + 1):
+                node = node.next
+        return node
+
+    def get(self, index: int) -> int:
         """
         Get the value of the index-th node in the linked list. If the index is invalid, return -1.
-        :type index: int
-        :rtype: int
         """
-        if index < 0 or index >= self.size:
+        if 0 <= index < self._count:
+            node = self._get_node(index)
+            return node.val
+        else:
             return -1
 
-        if self.head is None:
-            return -1
-
-        curr = self.head
-        for i in range(index):
-            curr = curr.next
-        return curr.val
-
-    def addAtHead(self, val):
+    def addAtHead(self, val: int) -> None:
         """
-        Add a node of value val before the first element of the linked list.
-        After the insertion, the new node will be the first node of the linked list.
-        :type val: int
-        :rtype: void
+        Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.
         """
-        node = Node(val)
-        node.next = self.head
-        self.head = node
+        self._update(self._head, self._head.next, val)
 
-        self.size += 1
-
-    def addAtTail(self, val):
+    def addAtTail(self, val: int) -> None:
         """
         Append a node of value val to the last element of the linked list.
-        :type val: int
-        :rtype: void
         """
-        curr = self.head
-        if curr is None:
-            self.head = Node(val)
-        else:
-            while curr.next is not None:
-                curr = curr.next
-            curr.next = Node(val)
+        self._update(self._tail.prev, self._tail, val)
 
-        self.size += 1
-
-    def addAtIndex(self, index, val):
+    def addAtIndex(self, index: int, val: int) -> None:
         """
-        Add a node of value val before the index-th node in the linked list.
-        If index equals to the length of linked list, the node will be appended to the end of linked list.
-        If index is greater than the length, the node will not be inserted.
-        :type index: int
-        :type val: int
-        :rtype: void
+        Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted.
         """
-        if index < 0 or index > self.size:
+        if index < 0:
+            index = 0
+        elif index > self._count:
             return
+        node = self._get_node(index)
+        self._update(node.prev, node, val)
 
-        if index == 0:
-            self.addAtHead(val)
-        else:
-            curr = self.head
-            for i in range(index - 1):
-                curr = curr.next
-            node = Node(val)
-            node.next = curr.next
-            curr.next = node
+    def _update(self, prev: Node, next: Node, val: int) -> None:
+        """
+            更新节点
+            :param prev: 相对于更新的前一个节点
+            :param next: 相对于更新的后一个节点
+            :param val:  要添加的节点值
+        """
+        # 计数累加
+        self._count += 1
+        node = Node(val)
+        prev.next, next.prev = node, node
+        node.prev, node.next = prev, next
 
-            self.size += 1
-
-    def deleteAtIndex(self, index):
+    def deleteAtIndex(self, index: int) -> None:
         """
         Delete the index-th node in the linked list, if the index is valid.
-        :type index: int
-        :rtype: void
         """
-        if index < 0 or index >= self.size:
-            return
-
-        curr = self.head
-        if index == 0:
-            self.head = curr.next
-        else:
-            for i in range(index - 1):
-                curr = curr.next
-            curr.next = curr.next.next
-
-        self.size -= 1
+        if 0 <= index < self._count:
+            node = self._get_node(index)
+            # 计数-1
+            self._count -= 1
+            node.prev.next, node.next.prev = node.next, node.prev
 # Your MyLinkedList object will be instantiated and called as such:
 # obj = MyLinkedList()
 # param_1 = obj.get(index)
