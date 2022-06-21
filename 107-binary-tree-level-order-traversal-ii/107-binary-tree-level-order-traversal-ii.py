@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
-        """result = []
+        result = []
         
         def helper(r, d):
             if not r:
@@ -24,8 +24,8 @@ class Solution:
         helper(root, 0)
         result.reverse()
         
-        return result"""
-        if not root:
+        return result
+        """if not root:
             return []
         results = []
         from collections import deque
@@ -42,6 +42,6 @@ class Solution:
                     que.append(cur.right)
             results.append(result)
             
-        results.reverse()
+        results.reverse()"""
         
         return results
