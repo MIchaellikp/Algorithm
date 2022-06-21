@@ -17,19 +17,23 @@ class Solution:
         que = deque([root])
         
         while que:
+            
+            node= que[-1]
+            results.append(node.val)
+            
             result = []
             
             for _ in range(len(que)):
                 
                 cur = que.popleft()
-                result.append(cur.val)
+                #result.append(cur.val)
                 
                 if cur.left:
                     que.append(cur.left)
                 if cur.right:
                     que.append(cur.right)
                     
-            results.append(result[-1])
+            #results.append(result[-1])
             
         return results
         
