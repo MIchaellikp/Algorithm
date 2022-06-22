@@ -9,7 +9,7 @@ class Node:
 class Solution:
     def preorder(self, root: 'Node') -> List[int]:
         
-        result = []
+        """result = []
         
         def helper(r):
             if not r:
@@ -19,4 +19,19 @@ class Solution:
                 helper(i)
                 
         helper(root)
+        return result"""
+        
+        if not root:
+            return []
+        
+        queue = [root]
+        result = []
+        while queue:
+            cur = queue.pop()
+            result.append(cur.val)
+            temp = []
+            for i in cur.children:
+                temp.append(i)
+            queue.extend(temp[::-1])
+        
         return result
