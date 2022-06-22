@@ -12,7 +12,7 @@
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        n = len(nums)
+        """n = len(nums)
         k = n-k 
         def quickSelect(l,r): 
             pivot = nums[r] 
@@ -26,4 +26,7 @@ class Solution:
             elif i<k: return quickSelect(i+1,r)
             else:
                 return nums[i]
-        return quickSelect(0,n-1)
+        return quickSelect(0,n-1)"""
+            
+        nums.sort()
+        return nums[len(nums)-k]
