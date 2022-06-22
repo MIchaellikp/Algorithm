@@ -7,10 +7,17 @@ class Node:
 """
 
 class Solution:
-    def maxDepth(self, root: 'node') -> int:
+    def maxDepth(self, root: 'Node') -> int:
         if not root:
             return 0
-        depth = 0
-        for i in range(len(root.children)):
-            depth = max(depth, self.maxDepth(root.children[i]))
-        return depth + 1
+        count= 0
+        def dfs(count, n):
+            count += 1
+
+            ans = 0
+            for i in n.children:
+                ans = max(ans, dfs(count, i))
+           
+            return count if not n.children else ans
+         
+        return dfs(count, root)
