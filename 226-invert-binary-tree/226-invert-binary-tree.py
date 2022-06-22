@@ -4,7 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
+"""class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         
         def reverse(r):
@@ -18,4 +18,18 @@ class Solution:
             
         reverse(root)
         
+        return root"""
+class Solution:
+    def invertTree(self, root: TreeNode) -> TreeNode:
+        if not root:
+            return root
+        st = []
+        st.append(root)
+        while st:
+            node = st.pop()
+            node.left, node.right = node.right, node.left #中
+            if node.right:
+                st.append(node.right) #右
+            if node.left:
+                st.append(node.left) #左
         return root
