@@ -21,17 +21,14 @@ class Solution:
         helper(root)
         return result"""
         
-        if not root:
-            return []
-        
-        queue = [root]
+
+        stack = [root]
         result = []
-        while queue:
-            cur = queue.pop()
-            result.append(cur.val)
-            temp = []
-            for i in cur.children:
-                temp.append(i)
-            queue.extend(temp[::-1])
         
+        while stack:
+            curr = stack.pop()
+            if curr:
+                result.append(curr.val)
+                for c in curr.children[::-1]:
+                    stack.append(c)
         return result
