@@ -5,14 +5,23 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:
-        md = 0
+    def maxDepth(self, root: TreeNode) -> int:
+        if root == None:
+            return 0
         
-        def helper(r):
-            if not r:
-                return 0
-            return max(helper(r.left), helper(r.right)) + 1
+        queue_ = [root]
+        result = []
+        while queue_:
+            length = len(queue_)
+            sub = []
+            for i in range(length):
+                cur = queue_.pop(0)
+                sub.append(cur.val)
+                #子节点入队列
+                if cur.left: queue_.append(cur.left)
+                if cur.right: queue_.append(cur.right)
+            result.append(sub)
             
-        md = helper(root)
-        return md
+
+        return len(result)
         
