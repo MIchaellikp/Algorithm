@@ -10,7 +10,7 @@ class Node:
 
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        if not root:
+        """if not root:
             return None
         
         
@@ -34,7 +34,16 @@ class Solution:
                 else:
                     cur.next = stack[0]
                     
-
+        return root"""
+        
+        first = root
+        while first:
+            cur = first
+            while cur:
+                if cur.left: cur.left.next = cur.right
+                if cur.right and cur.next:
+                    cur.right.next = cur.next.left
+                cur = cur.next
+            first = first.left
                 
-            
         return root
