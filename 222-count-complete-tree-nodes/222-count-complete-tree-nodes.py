@@ -7,4 +7,18 @@
 class Solution:
     def countNodes(self, root: Optional[TreeNode]) -> int:
             if not root: return 0
-            return 1 + self.countNodes(root.left) + self.countNodes(root.right)
+            queue = collections.deque()
+            queue.append(root)
+            result = 0
+            while queue:
+                size = len(queue)
+                result += size
+                for i in range(size):
+                    cur = queue.popleft()
+                    if cur.left:
+                        queue.append(cur.left)
+                    if cur.right:
+                        queue.append(cur.right)
+                        
+                        
+            return result
