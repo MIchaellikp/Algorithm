@@ -8,7 +8,7 @@ class Solution:
     def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
         self.result = 0
         
-        def helper(node):
+        """def helper(node):
             if not node:
                 return
             
@@ -20,5 +20,21 @@ class Solution:
             helper(node.right)
         
         helper(root)
-        return self.result
-    
+        return self.result"""
+        stack = []
+        if root: 
+            stack.append(root)
+        res = 0
+        
+        while stack: 
+            # 每次都把当前节点的左节点加进去. 
+            cur_node = stack.pop()
+            if cur_node.left and not cur_node.left.left and not cur_node.left.right: 
+                res += cur_node.left.val
+                
+            if cur_node.left: 
+                stack.append(cur_node.left)
+            if cur_node.right: 
+                stack.append(cur_node.right)
+                
+        return res
