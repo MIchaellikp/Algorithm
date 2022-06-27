@@ -5,7 +5,7 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+    """def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         
         
         if not root:
@@ -30,4 +30,21 @@ class Solution:
             
 
         helper(root,[root.val])
-        return self.result
+        return self.result"""
+    
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
+        result = []
+        def helper(root, targetSum, currentList, remain):
+            if root is None:
+                return 
+            remain -= root.val
+            currentList.append(root.val)
+            if root.left is None and root.right is None:
+                if remain == 0:
+                    result.append(list(currentList))
+            helper(root.left, targetSum, currentList, remain)
+            helper(root.right, targetSum, currentList, remain)
+            currentList.pop()
+            
+        helper(root, targetSum, [], targetSum)
+        return result
