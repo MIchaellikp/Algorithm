@@ -6,7 +6,7 @@
 #         self.right = right
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        if not preorder:
+        """if not preorder:
             return None
         
         root_val = preorder[0]
@@ -23,4 +23,35 @@ class Solution:
         root.left = self.buildTree(preorder_left, inorder_left)
         root.right = self.buildTree(preorder_right, inorder_right)
         
-        return root
+        return root"""
+        
+        n = len(preorder)
+        
+        d = dict()
+        
+        for i, v in enumerate(inorder):
+            d[v] = i
+            
+        self.preorder_index = 0
+        
+        def helper(left ,right):
+            if left > right:
+                return
+            
+            rootVal = preorder[self.preorder_index]
+            self.preorder_index += 1
+            in_i = d[rootVal]
+            
+            root = TreeNode(rootVal)
+            
+            root.left = helper(left, in_i - 1)
+            root.right = helper(1 + in_i, right)
+            return root
+            
+        return helper(0, n - 1)
+            
+            
+            
+            
+            
+            
