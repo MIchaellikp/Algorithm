@@ -30,18 +30,18 @@ class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
         # 规律: BST的中序遍历节点数值是从小到大. 
         cur_max = -float("INF")
-        def __isValidBST(root: TreeNode) -> bool: 
+        def __isValidBST(node: TreeNode) -> bool: 
             nonlocal cur_max
             
-            if not root: 
+            if not node: 
                 return True
             
-            is_left_valid = __isValidBST(root.left)
-            if cur_max < root.val: 
-                cur_max = root.val
+            is_left_valid = __isValidBST(node.left)
+            if cur_max < node.val: 
+                cur_max = node.val
             else: 
                 return False
-            is_right_valid = __isValidBST(root.right)
+            is_right_valid = __isValidBST(node.right)
             
             return is_left_valid and is_right_valid
         return __isValidBST(root)
