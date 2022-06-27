@@ -4,7 +4,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-class Solution:
+"""class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         if not postorder:
             return None
@@ -25,4 +25,30 @@ class Solution:
         root.right = self.buildTree(inorder_right, postorder_right)
         
         
-        return root
+        return root"""
+
+
+class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        n = len(inorder)
+        
+        def helper(pStart, pEnd, iStart, iEnd):
+            if pStart > pEnd:
+                return 
+            
+            rootVal = postorder[pEnd]
+            rootIdx = in_map[rootVal]
+            leftCnt = rootIdx - iStart
+            
+            root = TreeNode(rootVal)
+            root.left = helper(pStart, pStart+leftCnt-1, iStart, rootIdx-1)
+            root.right = helper(pStart+leftCnt, pEnd-1, rootIdx+1, iEnd)
+            
+            return root
+            
+        
+        in_map = dict()
+        for i, x in enumerate(inorder):
+            in_map[x] = i
+            
+        return helper(0, n-1, 0, n-1)
