@@ -1,4 +1,4 @@
-class Solution:
+"""class Solution:
     def minPartitions(self, n: str) -> int:
         result = 0
         
@@ -8,4 +8,8 @@ class Solution:
             if int(i) > result:
                 result = int(i)
                 
-        return result
+        return result"""
+    
+class Solution:
+    def minPartitions(self, n: str) -> int:
+        return max(int(digit) for digit in set(n))
