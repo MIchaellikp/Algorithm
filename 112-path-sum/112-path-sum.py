@@ -6,31 +6,23 @@
 #         self.right = right
 class Solution:
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
-        if not root :
+        if not root:
             return False
-        
-        
-        self.targetSum = targetSum
-        
-        def helper(node, val):
-            if not node.left and not node.right:
-                if val == self.targetSum:
-                    return True
-                else:
-                    return False
-                
-            if node.left:
-                val += node.left.val
-                if helper(node.left,val):
-                    return True
-                val -= node.left.val
-            if node.right:
-                val += node.right.val
-                if helper(node.right,val):
-                    return True
-                val -= node.right.val
+
+        def traverse_tree(tree_node: Optional[TreeNode], current_sum: int):
+            if not tree_node:
+                return False
             
-            return False
+            is_leaf = (tree_node.left is None and tree_node.right is None)
+            if is_leaf:
+                # print(f"leaf_sum: {current_sum} with node val: {tree_node.val} = {current_sum + tree_node.val}")
+                if (current_sum + tree_node.val) == targetSum:
+                    return True
+            else:
+                # print(f"not leaf: node val: {tree_node.val} leaf_sum: {leaf_sum}")
+                current_sum += tree_node.val
+                # print(f"after: not leaf: node val: {tree_node.val} current_sum: {current_sum}")
+            return traverse_tree(tree_node.left, current_sum) or traverse_tree(tree_node.right, current_sum)
         
-        return helper(root,root.val)
+        return traverse_tree(root, 0)
                 
