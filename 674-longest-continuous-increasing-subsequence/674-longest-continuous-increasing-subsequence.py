@@ -3,11 +3,14 @@ class Solution:
         if len(nums) == 0:
             return 0
         
-        dp = [1] * len(nums)
+        count = 1
         res = 1
         for i in range(1,len(nums)):
             if nums[i] > nums[i-1]:
-                dp[i] += dp[i-1]
+                count += 1
+            else:
+                res = max(res, count)
+                count = 1
                 
-            res = max(res, dp[i])
+        res = max(res, count)
         return res
