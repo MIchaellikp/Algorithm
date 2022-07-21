@@ -1,6 +1,6 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        l = 0
+        """l = 0
         r = len(height) - 1
         lm, rm = 0,0 
         res = 0
@@ -19,4 +19,21 @@ class Solution:
                     
                 r -= 1
                 
-        return res
+        return res"""
+        lh, rh = [0] * len(height), [0] * len(height) 
+        
+        lh[0] = height[0]
+        
+        for i in range(1, len(height)):
+            lh[i] = max(height[i], lh[i-1])
+            
+        rh[-1] = height[-1]
+        
+        for i in range(len(height)-2, -1, -1):
+            rh[i] = max(rh[i+1], height[i])
+        
+        ans = 0
+        for i in range(len(height)):
+            ans += min(lh[i], rh[i]) - height[i]
+            
+        return ans
