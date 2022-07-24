@@ -9,7 +9,7 @@ class Solution:
         
         
         for row in matrix:
-            #if row[0] < target:
+            if row[0] <= target:
                 if row[0] <= target <= row[-1]:
                     l, r = 0, w - 1
                     while l <= r:
@@ -21,8 +21,8 @@ class Solution:
                             l = m + 1
                         else:
                             return True
-            #else:
-                #return False
+            else:
+                return False
 
 
         return False
