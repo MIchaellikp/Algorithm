@@ -4,7 +4,7 @@ class Solution:
         flag = 0
         
         for i in range(len(s)):
-            if s[i] == 'R':
+            if s[i] == 'L':
                 flag += 1
             else:
                 flag -= 1
