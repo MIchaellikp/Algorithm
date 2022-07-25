@@ -1,16 +1,14 @@
 class Solution:
     def balancedStringSplit(self, s: str) -> int:
-        res = 0
-        flag = 0
-        
-        for i in s:
-            if i == 'R':
-                flag += 1
+        balence = 0
+        count = 0
+        for i in range(len(s)):
+            if(s[i] == 'L'):
+                balence += 1
             else:
-                flag -= 1
-                
-            if flag == 0:
-                res += 1
-                
-                
-        return res
+                balence -= 1
+            
+            if(balence == 0):
+                count += 1
+        
+        return count
