@@ -7,13 +7,11 @@ class Solution:
         rm = 0
         
         while l < r:
-            lm = max(lm,height[l])
-            rm = max(rm,height[r])
-            if lm > rm:
-                res = max(rm*(r-l), res)
+            if height[l] > height[r]:
+                res = max(height[r]*(r-l), res)
                 r -= 1
             else:
-                res = max(lm*(r-l), res)
+                res = max(height[l]*(r-l), res)
                 l += 1
                 
         return res
