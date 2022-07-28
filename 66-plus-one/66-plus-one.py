@@ -9,6 +9,6 @@ class Solution:
             else:
                 digits[i] = 0
                 
-        digits.insert(0,1)
+ 
         
-        return digits
+        return [hold] + digits
