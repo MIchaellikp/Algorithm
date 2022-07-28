@@ -12,12 +12,8 @@ class Solution:
                     c.add(j)
                     r.add(i)
                     
-        for i in r:
+        for i in range(len(matrix)):
             for j in range(len(matrix[0])):
-                matrix[i][j] = 0
-                
-        for j in c:
-            for i in range(len(matrix)):
-                matrix[i][j] = 0
-                
+                if i in r or j in c:
+                    matrix[i][j] = 0
         
