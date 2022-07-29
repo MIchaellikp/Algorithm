@@ -26,7 +26,7 @@ class Solution:
         elif r is None:
             return l
         
-        dummy = p = ListNode(0)
+        dummy = p = ListNode()
         
         while l and r:
             if l.val < r.val:
